@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h2>Device Controls</h2>
+        <div class="card">
+            <button onclick="sendCommand('location')">📍 Get Location</button>
+            <button onclick="sendCommand('screenshot')">📸 Take Screenshot</button>
+            <button onclick="sendCommand('sms')">📩 Read SMS</button>
+        </div>
+    </div>
+    <script>
+        function sendCommand(cmd) { alert(`Sending command: ${cmd} to device...`); }
+    </script>
+</body>
+</html>
